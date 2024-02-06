@@ -1,0 +1,18 @@
+package selenium_training;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Homework {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driverChrome = new ChromeDriver();
+		driverChrome.get("https://www.emag.ro/");
+		driverChrome.manage().window().maximize();
+
+		// find element (eMAG Help) by class name
+		driverChrome.findElement(By.className("navbar-aux-help-link")).click();
+	}
+
+}

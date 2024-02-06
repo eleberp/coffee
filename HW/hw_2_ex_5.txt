@@ -1,0 +1,21 @@
+package selenium_training;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Homework {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driverChrome = new ChromeDriver();
+		driverChrome.get("https://auth.emag.ro/user/login");
+		driverChrome.manage().window().maximize();
+
+		// 2 locatori Tag Name + 2 alte locatore (ex. id sau name)
+		driverChrome.findElement(By.id("user_login_email")).click();
+		driverChrome.findElement(By.id("user_login_email")).sendKeys("harrypotter@gogwarts.com");
+		driverChrome.findElement(By.tagName("button")).click();
+	
+	}
+
+}

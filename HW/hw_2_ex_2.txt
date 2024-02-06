@@ -1,0 +1,19 @@
+package selenium_training;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Homework {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driverChrome = new ChromeDriver();
+		driverChrome.get("http://www.aliexpress.com");
+		driverChrome.manage().window().maximize();
+
+		// search by keyword
+		driverChrome.findElement(By.id("search-words")).click();
+		driverChrome.findElement(By.id("search-words")).sendKeys("Persil");
+	}
+
+}

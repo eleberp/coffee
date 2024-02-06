@@ -1,0 +1,22 @@
+package selenium_training;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Homework {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ChromeDriver driverChrome = new ChromeDriver();
+		driverChrome.get("https://www.emag.ro/");
+		driverChrome.manage().window().maximize();
+
+		// 5 locatori partialLinkText
+		driverChrome.findElement(By.partialLinkText("Finantare in rate")).click();
+		driverChrome.findElement(By.partialLinkText("in rate fara dobanda")).click();
+		driverChrome.findElement(By.partialLinkText("zile drept de retur")).click();
+		driverChrome.findElement(By.partialLinkText("coletului la livrare")).click();
+		driverChrome.findElement(By.partialLinkText("Online a litigiilor")).click();
+	}
+
+}
