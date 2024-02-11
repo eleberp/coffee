@@ -1,0 +1,58 @@
+package selenium_training;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Homework3 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+
+		/*Analizati un site preferat si scrieti un script care sa contina: 
+	1 Absolute XPath, 1 Relative XPATH, 1 starts-with, 1 contains, 1 text(), 1 and, 1 or*/
+
+		ChromeDriver driverChrome = new ChromeDriver();
+		driverChrome.get("https://moonglow.md/");
+		driverChrome.manage().window().maximize();
+
+		// 1 aboslute XPATH => Go to Stories about Retinol	
+		driverChrome.findElement(By.xpath("html/body/div/div/div/div/div/article/div/section/div/div/div/div/div/figure/a")).click();
+
+		//1 relative XPATH => Go to 2nd story by clicking on next button	
+		driverChrome.findElement(By.xpath("/html/body/amp-story/div[2]")).click();
+
+		// Go back to HomePage
+		driverChrome.navigate().back();
+
+		//1 contains
+		//formula: =//tagname[contains(@Attribute,’Value’)] => Switch the language to EN
+		driverChrome.findElement(By.xpath("//img[contains(@alt,'Engleză')]")).click();
+
+		//1 starts-with
+		//formula: //tagname[starts-with(@Attribute,’Value’)] => Click on currency MDL
+		driverChrome.findElement(By.xpath("//a[starts-with(@class,'wcml-cs-i')]")).click();
+
+		//1 ends-with
+		//formula: //tagname[ends-with(@Attribute,’Value’)]
+		//The issue is: starts-with is available in XPath 1.0 while ends-with was only introduced by XPath 2.0 .
+		//Selenium supports XPath 1.0 only.
+
+		//1 text() => Go to Footer => 'Frequently asked question'
+		//formula: //tagname[text()=’ActualText’]
+		driverChrome.findElement(By.xpath("//a[text()='Frequently asked questions']")).click();
+
+		// Go back to HomePage
+		driverChrome.navigate().back();
+
+		//1 or => Switch language to RO
+		//formula: //tagname[@Attribute=’Value’ or @Attribute=’Value’]
+		driverChrome.findElement(By.xpath("//img[@class='wpml-ls-flag' or @alt='Romanian']")).click();
+
+		//1 and => Go to 'Moonglow's page on Instagram'
+		//formula: //tagname[@Attribute=’Value’ and @Attribute=’Value’]
+		driverChrome.findElement(By.xpath("//a[@rel='noopener noreferrer nofollow' and @class=' wd-social-icon social-instagram']")).click();
+
+	}
+
+}
