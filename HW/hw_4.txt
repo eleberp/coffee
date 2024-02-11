@@ -1,0 +1,88 @@
+package selenium_training;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Homework4 {
+
+	public static void main(String[] args) {
+
+		/*Creați un script pentru olx.ro pentru locatorul CSS cu metoda click(), 
+		care să conțină in total 12 locatori care să aibă: 
+		1 ID, 2 Class, 4 Other attribute, 1 format din doua atribute, 1 prefix substring, 1 matching substring, 
+		1 direct child, 1 next sibling*/
+
+		ChromeDriver driverChrome = new ChromeDriver();
+		driverChrome.get("https://olx.ro");
+		driverChrome.manage().window().maximize();
+//
+//		// 1) by ID => Accept cookies
+//		// formula: #elementID
+		driverChrome.findElement(By.cssSelector("#onetrust-accept-btn-handler")).click();
+//
+//		// 2) by CLASS (1) => Go to 'Search' bar
+//		// formula: tagName.elementClass
+		driverChrome.findElement(By.cssSelector("input.css-1dvk3om")).click();
+//
+//		// 3) by CLASS (2) => Go to 'Apartamente - Garsoniere de inchiriat'
+//		// formula: tagName.elementClass
+		driverChrome.findElement(By.cssSelector("input.css-1dvk3om")).sendKeys("apartament 1 camera chirie");
+		driverChrome.findElement(By.cssSelector("button.css-1xla5xw")).click();
+//
+//
+//		// 4) by OTHER attributes (1) => Go to 'Cum functioneaza' in the footer
+//		// formula:  tagName[AttributeName=’AttributeValue’] 
+		driverChrome.findElement(By.cssSelector("a[title='Cum functioneaza?']")).click();
+//
+//
+//		// 5) by OTHER attributes (2) => Switch from 'Cumpar' to 'Vreau sa cumpar'
+//		// formula:  tagName[AttributeName=’AttributeValue’] 
+		driverChrome.findElement(By.cssSelector("a[data-tab-target='2']")).click();
+//		
+//		
+//		// 6) by OTHER attributes (3) => Click on 'Publica un anunt' button
+//		// formula:  tagName[AttributeName=’AttributeValue’] 
+		driverChrome.findElement(By.cssSelector("a[data-tab-button='2']")).click();
+		
+		
+		//Go back to HomePage
+		driverChrome.get("https://olx.ro");
+		
+		
+		// 7) by OTHER attributes (4) => Go to 'Creeaza un cont'
+		// formula:  tagName[AttributeName=’AttributeValue’] 
+		driverChrome.findElement(By.cssSelector("a[data-path='mama-si-copilul']")).click();
+		
+		
+		// 8) 1 format din doua atribute => Go to 'Moda si frumusete'
+		// formula: tagName.classValue[AttributeName=’AttributeValue’][ AttributeName=’AttributeValue’]
+		driverChrome.findElement(By.cssSelector("a.css-1gpccxq[data-testid='cat-87'][data-path='moda-frumusete']")).click();
+		
+		
+		// 9) 1 matching substring => Go to 'Harta site'
+		// formula: tagname[name*=’d_fixed_d’]
+		driverChrome.findElement(By.cssSelector("a[title*='Harta site']")).click();
+		
+		
+		// 10) 1 prefix substring => Go to 'Ajutor si Contacte'
+		// formula: tagname[name^=’fixed_d’]
+		driverChrome.findElement(By.cssSelector("a[title^='Ajutor si']")).click();
+		
+		
+		// 11) 1 direct child => Go to 'Contul tau OLX'
+		// formula: tagName[AttributeName=’AttributeValue’] > tagName
+		driverChrome.findElement(By.cssSelector("h3[class='topicHeader slds-truncate'] > a")).click();
+		
+		
+		//Go back to HomePage
+		driverChrome.get("https://olx.ro");
+		
+		// 12) 1 next sibling => Go to 'Imobiliare'
+		// formula: tagName[AttributeName=’AttributeValue’] + tagName (nu se va selecta elementul cu acel class, dar se va selecta urmatorul element de tip a]
+		driverChrome.findElement(By.cssSelector("a[class='css-1gpccxq']+a")).click();
+
+
+
+	}
+
+}
