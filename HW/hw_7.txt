@@ -1,0 +1,123 @@
+package selenium_training;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Homework7 {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+		/* Analizați un site preferat și creați un script care să conțină toate 
+		 * metodele discutate astăzi (unul după altul, similar cum am făcut astăzi) pe acelasi site.*/
+		
+		
+		ChromeDriver driverChrome = new ChromeDriver();
+		
+		// #1 .get() - Go to www.zara.com
+		driverChrome.get("https://www.zara.com/");
+		
+		// #2 .getTitle() - Print meta title in the console
+		String websiteTitle = driverChrome.getTitle();
+		System.out.println("User has accessed: " + websiteTitle);
+		
+		// #3 .manage() - Maximize the window
+		driverChrome.manage().window().maximize();
+		
+		Thread.sleep(5000);
+		
+		// #4 .findElement(By) - Accept cookies
+		driverChrome.findElement(By.xpath("//*[@id=\"onetrust-accept-btn-handler\"]")).click();
+		
+		// #5 .click() - Click on 'Go' button
+		driverChrome.findElement(By.xpath("//*[@id=\"theme-app\"]/div/div[1]/div[1]/div[2]/form/button/div")).click();
+		
+		Thread.sleep(5000);
+		
+		// #6 .getCurrentUrl() - Click on 'Search' bar
+		driverChrome.findElement(By.xpath("//*[@id=\"theme-app\"]/div/div/header/div[2]/div/a")).click();
+		String currentUrl = driverChrome.getCurrentUrl();
+		System.out.println("User is currently on page: " + currentUrl + " of 'Zara' website");
+		
+		Thread.sleep(5000);
+		
+		
+		// #7 .sendKeys() - Search for a grey sweater
+		driverChrome.findElement(By.xpath("//*[@id=\"search-products-form-combo-input\"]")).sendKeys("grey sweater");
+		driverChrome.findElement(By.xpath("//*[@id=\"search-products-form-combo-input\"]")).sendKeys(Keys.ENTER);
+		
+		
+		// #8 Dropdown - Click on Size, Select size S		
+		Thread.sleep(5000);
+		driverChrome.findElement(By.xpath("//*[@id=\"main\"]/article/div/div/section/div[1]/div[3]/div[1]/div[1]/nav/ul/li[1]/button")).click();
+		Thread.sleep(5000);
+		driverChrome.findElement(By.xpath("//*[@id=\"main\"]/article/div/div/section/div[1]/div[3]/div[1]/div[1]/div/div/div[1]/fieldset/div[3]/label")).click();
+		
+		
+		// #9 .navigate.to() - Open KNIT SWEATER WITH RHINESTONES product's page 
+		driverChrome.navigate().to("https://www.zara.com/ro/en/knit-sweater-with-rhinestones-p01509020.html?v1=330357923");
+		String productPageTitle = driverChrome.getTitle();
+		System.out.println(productPageTitle);
+
+		
+		// #10 .isSelected() - Check if size S is selected	
+		System.out.println("Size S is selected: " + driverChrome.findElement(By.xpath("//*[@id=\"product-size-selector-330357923-item-0\"]/div/div/div")).isSelected());
+		
+		// #11 .isEnabled() - Select size S & check if ADD button is enabled
+		driverChrome.findElement(By.xpath("//*[@id=\"product-size-selector-330357923-item-0\"]/div/div/div/div")).click();
+		System.out.println("ADD button is enabled: " + driverChrome.findElement(By.xpath("//*[@id=\"main\"]/article/div/div[1]/div[2]/div/div[3]/div/div/button/div/span")).isEnabled());
+		
+		// #12 .getAttribute - from ADD button
+		WebElement addButton = driverChrome.findElement(By.xpath("//*[@id=\"main\"]/article/div/div[1]/div[2]/div/div[3]/div/div/button"));
+		System.out.println("ADD Button - attribute's value: " + addButton.getAttribute("aria-label"));
+		
+		// #13 .getCssValue - from ADD Button
+		System.out.println(addButton.getCssValue("ADD Button - css' value:" + "text-transform"));
+		 
+		// #14 .getLocation - of ADD Button
+		System.out.println(addButton.getLocation());
+		
+		// #15 .getSize - of ADD Button
+		System.out.println(addButton.getSize());
+		
+		// #16 .getTagname - of ADD Button
+		System.out.println(addButton.getTagName());
+		
+		// #17 .getText - of ADD Button
+		System.out.println(addButton.getText());
+			
+		// #18 Scroll down to Instagram link in the Footer section
+		WebElement InstagramLink = driverChrome.findElement(By.xpath("//*[@id=\"utilities\"]/div/div/ul/li[2]/ul/li[4]/a"));
+		Actions scrolling = new Actions(driverChrome);
+		Thread.sleep(5000);
+		scrolling.moveToElement(InstagramLink);
+		scrolling.perform();
+	
+		// #19 .isDisplayed() - Check if Zara's Instagram page is displayed in the footer section
+		System.out.println("Zara has an Instagram page displayed in the footer section: " + InstagramLink.isDisplayed());
+		
+		// #20 .getWindowHandle() - from Zara's product page
+		System.out.println(driverChrome.getWindowHandle());
+		
+		// #21 .switchTo() - Switch from Instagram to Zara
+		InstagramLink.click();
+		System.out.println("Am accesat Instagram");
+		Thread.sleep(10000);
+		driverChrome.switchTo().window("2781778B37898958B43D76548CFF5DA3");
+		System.out.println("Am revenit pe Zara");
+		Thread.sleep(5000);
+		
+		// #22 .quit() - Close Zara's website
+		driverChrome.quit();
+		System.out.println("Browser-ul s-a inchis");
+ 		
+	
+
+	}
+
+}
