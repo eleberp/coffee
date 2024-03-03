@@ -1,0 +1,120 @@
+package ui;
+
+import java.io.File;
+
+import java.io.IOException;
+import java.time.Duration;
+
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+public class Homework10 {
+	
+	
+	ChromeDriver driverChrome = new ChromeDriver();
+	
+	@BeforeTest
+	public void openWebsite() {
+		driverChrome.get("https://www.rottentomatoes.com/");
+	}
+	
+	
+	@BeforeMethod
+	public void testBeforeMethod() {
+		System.out.println("Starting next test");
+	}
+	
+	
+	@AfterTest(description="10. Close the browser & end session")
+	public void afterTest() {
+		System.out.println("Tests are finished");
+		driverChrome.quit();
+	}
+	
+	@Test(priority=0, groups="homepage", description="1. Make a screenshot of the homepage of RottenTomatoes.com")
+	public void tcStep1() throws IOException {
+		File capture1 = driverChrome.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture1, new File(".//screenshot/test_step_1.jpg")); 
+	}
+	
+	@Test(priority=0, groups="homepage", description="2. Maximize the browser's window")
+	public void tcStep2() throws IOException {
+		driverChrome.manage().window().maximize();		
+		File capture2 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture2, new File(".//screenshot/test_step_2.jpg")); 
+	}
+	
+	@Test(priority=0, groups="homepage", description="3. Accept cookies")
+	public void tcStep3() throws IOException {
+		driverChrome.findElement(By.xpath("//*[@id=\"onetrust-accept-btn-handler\"]")).click();
+		File capture3 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture3, new File(".//screenshot/test_step_3.jpg")); 
+	}
+	
+	
+	@Test(priority=1, groups="homepage", description="4. Click on 'Search' bar")
+	public void tcStep4() throws IOException {
+		driverChrome.findElement(By.xpath("//*[@id=\"header-main\"]/search-algolia/search-algolia-controls/input")).click();
+		File capture4 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture4, new File(".//screenshot/test_step_4.jpg")); 
+	}
+	
+
+	@Test(priority=2, groups="homepage", description="5. Search for movie title 'Dune'")
+	public void tcStep5() throws IOException {
+		driverChrome.findElement(By.xpath("//*[@id=\"header-main\"]/search-algolia/search-algolia-controls/input")).sendKeys("Dune");
+		driverChrome.findElement(By.xpath("//*[@id=\"header-main\"]/search-algolia/search-algolia-controls/input")).sendKeys(Keys.ENTER);
+		File capture5 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture5, new File(".//screenshot/test_step_5.jpg")); 
+	}
+
+	@Test(priority=3, groups="search_results_page", description="6. Click on 'Dune: Part II' ")
+	public void tcStep6() throws IOException {
+		driverChrome.findElement(By.xpath("//*[@id=\"search-results\"]/search-page-result[1]/ul/search-page-media-row[1]/a[2]")).click();
+		File capture6 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture6, new File(".//screenshot/test_step_6.jpg")); 
+		driverChrome.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	}
+	
+	@Test(priority=4, groups="movie_page", description="7. Scroll down to 'Critics Reviews' section")
+	public void tcStep7() throws IOException {
+		WebElement criticsReviewsSection = driverChrome.findElement(By.xpath("//*[@id=\"critics-reviews\"]/div/div/div[2]/a"));
+		Actions scrolling = new Actions(driverChrome);
+		scrolling.moveToElement(criticsReviewsSection);
+		scrolling.perform();
+		File capture7 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture7, new File(".//screenshot/test_step_7.jpg"));
+	}
+	
+	@Test(priority=4, groups="movie_page", description="8. Get title of current page")
+	public void tcStep8() throws IOException {
+		String actualTitle = driverChrome.getTitle();
+		String expectedTitle = "Dune: Part Two | Rotten Tomatoes";
+		Assertion hardAssert = new Assertion();
+		hardAssert.assertEquals(actualTitle, expectedTitle, "Titlul nu corespunde");
+	}
+
+	@Test(priority=5, groups="movie_page", description="9. Click on 'View all critics reviews")
+	public void tcStep9() throws IOException {
+		driverChrome.findElement(By.xpath("//*[@id=\"critics-reviews\"]/div/div/div[2]/a")).click();
+		File capture9 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture9, new File(".//screenshot/test_step_9.jpg")); 
+	}
+	
+	@Test(enabled=false, priority=6, groups="reviews_page", description="10. Select 'All audience'")
+	public void tcStep10() throws IOException {
+		driverChrome.findElement(By.xpath("//*[@id=\"reviews\"]/nav/ul/li[3]/a")).click();
+		File capture10 = ((TakesScreenshot) driverChrome).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(capture10, new File(".//screenshot/test_step_10.jpg")); 
+	}
+}
