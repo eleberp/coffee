@@ -1,0 +1,6 @@
+GIVEN the user is logged in https://olx.ro/
+WHEN the user adds an item to cart
+AND selects a delivery method
+AND fills in payment form
+AND clicks on 'Continue' button
+THEN the user is redirected to 'Order Summary' page 
